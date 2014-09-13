@@ -1,0 +1,6 @@
+{
+  "src_files": [
+    "game.of.life.js",
+    "game.of.life-spec.js"
+  ]
+}
