@@ -18,6 +18,8 @@
 		spawn: function (y, x) {
 			if (y < this.height && x < this.width) {
 				this._grid[y][x] = true
+			} else {
+				throw new Error("Invalid grid position")
 			}
 		}
 		// is a location on the grid alive?

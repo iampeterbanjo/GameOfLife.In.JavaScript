@@ -27,9 +27,8 @@ describe("the game of life", function () {
 		it("should spawn only at valid locations", function () {
 			var grid = new Grid(2, 2)
 			grid.spawn(1, 1)
-			grid.spawn(5, 4)
 			expect(grid.isAlive(1, 1)).toBe(true)
-			expect(grid.isAlive(5, 4)).toBe(false)
+			expect(function () { grid.spawn(5, 4) }).toThrow(new Error("Invalid grid position"))
 		})
 
 		it("should get the number of neighbours", function () {
@@ -37,9 +36,6 @@ describe("the game of life", function () {
 			grid.spawn(1, 1)
 			expect(grid.aliveNeighbours(1, 1)).toBe(0)
 			grid.spawn(0, 1)
-			expect(grid.aliveNeighbours(1, 1)).toBe(1)
-			// this is off the grid and not spawned
-			grid.spawn(1, 2)
 			expect(grid.aliveNeighbours(1, 1)).toBe(1)
 		})
 	})
