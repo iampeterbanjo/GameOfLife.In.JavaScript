@@ -31,5 +31,16 @@ describe("the game of life", function () {
 			expect(grid.isAlive(1, 1)).toBe(true)
 			expect(grid.isAlive(5, 4)).toBe(false)
 		})
+
+		it("should get the number of neighbours", function () {
+			var grid = new Grid(2, 2)
+			grid.spawn(1, 1)
+			expect(grid.aliveNeighbours(1, 1)).toBe(0)
+			grid.spawn(0, 1)
+			expect(grid.aliveNeighbours(1, 1)).toBe(1)
+			// this is off the grid and not spawned
+			grid.spawn(1, 2)
+			expect(grid.aliveNeighbours(1, 1)).toBe(1)
+		})
 	})
 })
