@@ -32,15 +32,17 @@ describe("the game of life", function () {
 		})
 
 		it("should get the number of neighbours", function () {
-			var grid = new Grid(2, 2)
+			var grid = new Grid(3, 3)
 			grid.spawn(1, 1)
 			expect(grid.aliveNeighbours(1, 1)).toBe(0)
-			grid.spawn(0, 1)
-			expect(grid.aliveNeighbours(1, 1)).toBe(1)
 			grid.spawn(0, 0)
+			expect(grid.aliveNeighbours(1, 1)).toBe(1)
+			grid.spawn(0, 1)
 			expect(grid.aliveNeighbours(1, 1)).toBe(2)
-			grid.spawn(1, 0)
+			grid.spawn(0, 2)
 			expect(grid.aliveNeighbours(1, 1)).toBe(3)
+			grid.spawn(1, 0)
+			expect(grid.aliveNeighbours(1, 1)).toBe(4)
 		})
 		
 		it("should handle out of bounds inputs", function () {
@@ -91,15 +93,26 @@ describe("the game of life", function () {
 			expect(grid.isAlive(1,1)).toBe(true)
 		})
 		
-		it("should kill cells with more than three neighbours", function() {
+		it("should kill cells with four neighbours", function() {
 			var grid = new Grid(3, 3)
 			grid.spawn(1, 1)
+			
+			// neighbours
+			grid.spawn(0, 0)
+			grid.spawn(0, 1)
+			grid.spawn(0, 2)
+			grid.spawn(1, 0)
+			grid.next()
+			expect(grid.isAlive(0,1)).toBe(false)
+		})
+		
+		it("should spawn any dead cell with 3 live neighbours", function () {
+			var grid = new Grid(3, 3)
 			grid.spawn(0, 1)
 			grid.spawn(1, 0)
 			grid.spawn(0, 0)
-			grid.spawn(2, 1)
 			grid.next()
-			expect(grid.isAlive(1,1)).toBe(false)
+			expect(grid.isAlive(1,1)).toBe(true)
 		})
 	})
 })
