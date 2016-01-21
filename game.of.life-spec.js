@@ -67,5 +67,24 @@ describe("the game of life", function () {
 			grid.next()
 			expect(grid.isAlive(1,1)).toBe(false)
 		})
+		
+		it("should continue a cell with two neighbours", function() {
+			var grid = new Grid(2, 2)
+			grid.spawn(1, 1)
+			grid.spawn(0, 1)
+			grid.spawn(1, 0)
+			grid.next()
+			expect(grid.isAlive(1,1)).toBe(false)
+		})
+		
+		it("should continue a cell with three neighbours", function() {
+			var grid = new Grid(2, 2)
+			grid.spawn(1, 1)
+			grid.spawn(0, 1)
+			grid.spawn(1, 0)
+			grid.spawn(0, 0)
+			grid.next()
+			expect(grid.isAlive(1,1)).toBe(false)
+		})
 	})
 })
