@@ -106,8 +106,9 @@
 			var table = document.createElement('table')
 			table.setAttribute('id', 'grid')
 			
-			for (var index = 0; index < this.height; index++) {
+			for (var h = 0; h < this.height; h++) {
 				var row = document.createElement('tr')
+				
 				table.appendChild(row)
 			}
 			
