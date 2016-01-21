@@ -109,6 +109,10 @@
 			for (var h = 0; h < this.height; h++) {
 				var row = document.createElement('tr')
 				
+				for (var w = 0; w < this.width; w++) {
+					var cell = document.createElement('td')
+					row.appendChild(cell)
+				}
 				table.appendChild(row)
 			}
 			

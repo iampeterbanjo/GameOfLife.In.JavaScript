@@ -127,11 +127,18 @@ describe("the game of life", function () {
 			expect(table.tagName).toBe('TABLE')
 		})
 		
-		it("should draw the grid with correct rows", function () {
+		it("should draw the grid with correct number of rows", function () {
 			var grid = new Grid(2,2)
 					, table = grid.draw()
 					
 			expect(table.querySelectorAll('tr').length).toBe(2)
+		})
+		
+		it("should draw the grid with correct number of cells", function () {
+			var grid = new Grid(2,2)
+					, table = grid.draw()
+					
+			expect(table.querySelectorAll('td').length).toBe(4)
 		})
 	})
 })
