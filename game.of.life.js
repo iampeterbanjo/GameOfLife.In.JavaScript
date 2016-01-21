@@ -34,26 +34,29 @@
 		, aliveNeighbours: function (x, y) {
 			var me = this
 					, sum = 0
-					, left = [x - 1]
-					, right = [x + 1]
-					, top = [y + 1]
-					, bottom = [y - 1]
+					, left = x - 1
+					, right = x + 1
+					, top = y + 1
+					, bottom = y - 1
 					// the positions around this point in the
 					// grid where neighbours can be found
 					, neighbours = [
-						[[y], left]
-						, [top, left]
-						, [top, [x]]
-						, [top, right]
-						, [[y], right]
-						, [bottom, right]
-						, [bottom, [x]]
-						, [bottom, left]
+						[left, y]
+						, [left, top]
+						, [x, top]
+						, [right, top]
+						, [right, y]
+						, [right, bottom]
+						, [x, bottom]
+						, [left, bottom]
 					]
+					
+			if(x < 0 || y < 0 || x > me.width - 1 || y > me.height -1) {
+				return 0
+			}
 			
 			neighbours.forEach(function (n) {
-				if (!(left < 0 || right > this.width || top > this.height || bottom < 0) 
-				&& me.isAlive(n[0], n[1])) {
+				if(me.isAlive(n[0], n[1])) {
 					sum += 1
 				}
 			})
@@ -64,13 +67,28 @@
 			this._grid[x][y] = false
 		}
 		, next: function() {
-			for (var x = 0; x < this.width; x++) {
-				for (var y = 0; y < this.height; y++) {
-					if(this.aliveNeighbours(x, y) <= 2 ) {
-						this.kill(x, y)
-					}
+			var neighbours, me = this
+			
+			function gridWalk(x, y, callback){
+				if(x < me.width - 1) {
+					callback(x, y)
+					gridWalk(x + 1, y, callback)
+				} else if(y < me.height - 1) {
+					callback(x, y)
+					gridWalk(0, y + 1, callback)
 				}
 			}
+			
+			function checkCell(xx, yy){
+				neighbours = me.aliveNeighbours(xx, yy)
+				
+				if(neighbours < 2 ) {
+					me.kill(xx, yy)
+				}
+			}
+			
+			gridWalk(0, 0, checkCell)
+			checkCell(me.width - 1, me.height - 1)
 		}
 	}
 })()
