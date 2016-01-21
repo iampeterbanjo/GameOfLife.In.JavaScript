@@ -25,6 +25,7 @@
 		// is a location on the grid alive?
 		, isAlive: function (y, x) {
 			var alive = false
+			console.log(this._grid);
 			if (y < this.height && x < this.width) {
 				alive = this._grid[y][x]
 			}
@@ -50,14 +51,27 @@
 						, [bottom, [x]]
 						, [bottom, left]
 					]
+			
 			neighbours.forEach(function (n) {
-				if (me.isAlive(n[0], n[1])) {
+				if (!(left < 0 || right > this.width || top > this.height || bottom < 0) 
+				&& me.isAlive(n[0], n[1])) {
 					sum += 1
 				}
 			})
 
 			return sum
 		}
-		, next: function() {}
+		, kill: function(y, x) {
+			this._grid[y][x] = false
+		}
+		, next: function() {
+			for (var x = 0; x < this.width; x++) {
+				for (var y = 0; y < this.height; y++) {
+					if(this.aliveNeighbours(y, x) <= 2 ) {
+						this.kill(y, x)
+					}
+				}
+			}
+		}
 	}
 })()

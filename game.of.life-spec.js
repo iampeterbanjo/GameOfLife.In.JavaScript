@@ -37,12 +37,35 @@ describe("the game of life", function () {
 			expect(grid.aliveNeighbours(1, 1)).toBe(0)
 			grid.spawn(0, 1)
 			expect(grid.aliveNeighbours(1, 1)).toBe(1)
+			grid.spawn(0, 0)
+			expect(grid.aliveNeighbours(1, 1)).toBe(2)
+			grid.spawn(1, 0)
+			expect(grid.aliveNeighbours(1, 1)).toBe(3)
+			expect(grid.aliveNeighbours(-1, 1)).toBe(0)
 		})
-		
+
 		it("should be able to calculate the next round", function() {
 			var grid = new Grid(2, 2)
 			expect(grid.next).toBeDefined()
 		})
-		
+
+		it("should be able to kill", function() {
+			var grid = new Grid(2, 2)
+			expect(grid.kill).toBeDefined();
+		})
+
+		it("should be able to kill a cell", function() {
+			var grid = new Grid(2, 2)
+			grid.spawn(1, 1)
+			grid.kill(1, 1)
+			expect(grid.isAlive(1,1)).toBe(false);
+		})
+
+		it("should kill a cell with less than 2 neighbours", function() {
+			var grid = new Grid(2, 2)
+			grid.spawn(1, 1)
+			grid.next()
+			expect(grid.isAlive(1,1)).toBe(false)
+		})
 	})
 })
