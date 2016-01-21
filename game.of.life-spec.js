@@ -44,7 +44,7 @@ describe("the game of life", function () {
 		})
 		
 		it("should handle out of bounds inputs", function () {
-			console.log('should handle out of bounds inputs');
+			console.log("should handle out of bounds inputs");
 			var grid = new Grid(2, 2)
 			expect(grid.aliveNeighbours(-1, 0)).toBe(0)
 		})
@@ -73,25 +73,25 @@ describe("the game of life", function () {
 			expect(grid.isAlive(1,1)).toBe(false)
 		})
 		
-		// it("should continue a cell with two neighbours", function() {
-		// 	console.log('should continue a cell with two neighbours');
-		// 	var grid = new Grid(2, 2)
-		// 	grid.spawn(1, 1)
-		// 	grid.spawn(0, 1)
-		// 	grid.spawn(1, 0)
-		// 	grid.next()
-		// 	expect(grid.isAlive(1,1)).toBe(true)
-		// })
+		it("should continue a cell with two neighbours", function() {
+			console.log('should continue a cell with two neighbours');
+			var grid = new Grid(2, 2)
+			grid.spawn(1, 1)
+			grid.spawn(0, 1)
+			grid.spawn(1, 0)
+			grid.next()
+			expect(grid.isAlive(1,1)).toBe(true)
+		})
 		
-		// it("should continue a cell with three neighbours", function() {
-		// 	var grid = new Grid(2, 2)
-		// 	grid.spawn(1, 1)
-		// 	grid.spawn(0, 1)
-		// 	grid.spawn(1, 0)
-		// 	grid.spawn(0, 0)
-		// 	grid.next()
-		// 	expect(grid.isAlive(1,1)).toBe(true)
-		// })
+		it("should continue a cell with three neighbours", function() {
+			var grid = new Grid(2, 2)
+			grid.spawn(1, 1)
+			grid.spawn(0, 1)
+			grid.spawn(1, 0)
+			grid.spawn(0, 0)
+			grid.next()
+			expect(grid.isAlive(1,1)).toBe(true)
+		})
 		
 		
 	})
