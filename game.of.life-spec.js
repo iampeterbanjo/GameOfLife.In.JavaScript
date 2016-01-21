@@ -38,5 +38,11 @@ describe("the game of life", function () {
 			grid.spawn(0, 1)
 			expect(grid.aliveNeighbours(1, 1)).toBe(1)
 		})
+		
+		it("should be able to calculate the next round", function() {
+			var grid = new Grid(2, 2)
+			expect(grid.next).toBeDefined()
+		})
+		
 	})
 })

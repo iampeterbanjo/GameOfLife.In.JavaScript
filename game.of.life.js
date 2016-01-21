@@ -58,5 +58,6 @@
 
 			return sum
 		}
+		, next: function() {}
 	}
 })()
