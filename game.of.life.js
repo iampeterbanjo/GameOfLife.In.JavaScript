@@ -68,14 +68,20 @@
 			function walkX(x, y) {
 				if(x < me.width) {
 					walkY(x, y)
-					args.each(x, y)
+					
+					if(typeof args.each == 'function'){
+						args.each(x, y)
+					}
+
 					walkX(x + 1, y)
 				}
 			}
 			
 			function walkY(x, y){
 				if(y < me.height) {
-					args.each(x, y)
+					if(typeof args.each == 'function') {
+						args.each(x, y)
+					}
 					walkY(x, y + 1)
 				}
 			}
@@ -99,6 +105,11 @@
 		, draw: function () {
 			var table = document.createElement('table')
 			table.setAttribute('id', 'grid')
+			
+			for (var index = 0; index < this.height; index++) {
+				var row = document.createElement('tr')
+				table.appendChild(row)
+			}
 			
 			return table
 		}
