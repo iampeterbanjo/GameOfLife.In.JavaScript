@@ -62,28 +62,28 @@
 		, kill: function(x, y) {
 			this._grid[x][y] = false
 		}
+		, gridWalk: function(args){
+			var me = this
+			// cover x and y poisitions incrementally
+			function walkX(x, y) {
+				if(x < me.width) {
+					walkY(x, y)
+					args.each(x, y)
+					walkX(x + 1, y)
+				}
+			}
+			
+			function walkY(x, y){
+				if(y < me.height) {
+					args.each(x, y)
+					walkY(x, y + 1)
+				}
+			}
+			
+			walkX(0, 0)
+		}
 		, next: function() {
 			var neighbours, me = this
-			
-			// cover x and y poisitions incrementally
-			function gridWalk(callback){
-				function walkX(x, y) {
-					if(x < me.width) {
-						walkY(x, y)
-						callback(x, y)
-						walkX(x + 1, y)
-					}
-				}
-				
-				function walkY(x, y){
-					if(y < me.height) {
-						callback(x, y)
-						walkY(x, y + 1)
-					}
-				}
-				
-				walkX(0, 0)
-			}
 			
 			function checkCell(xx, yy){
 				neighbours = me.aliveNeighbours(xx, yy)
@@ -94,10 +94,13 @@
 				}
 			}
 			
-			gridWalk(checkCell)
+			me.gridWalk({each: checkCell})
 		}
 		, draw: function () {
+			var table = document.createElement('table')
+			table.setAttribute('id', 'grid')
 			
+			return table
 		}
 	}
 })()

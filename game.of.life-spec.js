@@ -119,5 +119,19 @@ describe("the game of life", function () {
 			var grid = new Grid(2,2)
 			expect(grid.draw).toBeDefined()
 		})
+		
+		it("should be able to draw the grid as a table", function () {
+			var grid = new Grid(2,2)
+					, table = grid.draw()
+					
+			expect(table.tagName).toBe('TABLE')
+		})
+		
+		it("should draw the grid with correct rows", function () {
+			var grid = new Grid(2,2)
+					, table = grid.draw()
+					
+			expect(table.querySelectorAll('tr').length).toBe(2)
+		})
 	})
 })
