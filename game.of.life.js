@@ -79,7 +79,7 @@
 			function checkCell(xx, yy){
 				neighbours = me.aliveNeighbours(xx, yy)
 				
-				if(neighbours < 2 ) {
+				if(neighbours < 2 || neighbours >= 3) {
 					me.kill(xx, yy)
 				}
 			}

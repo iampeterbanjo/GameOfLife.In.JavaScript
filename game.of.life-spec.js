@@ -44,7 +44,6 @@ describe("the game of life", function () {
 		})
 		
 		it("should handle out of bounds inputs", function () {
-			console.log("should handle out of bounds inputs");
 			var grid = new Grid(2, 2)
 			expect(grid.aliveNeighbours(-1, 0)).toBe(0)
 		})
@@ -74,7 +73,6 @@ describe("the game of life", function () {
 		})
 		
 		it("should continue a cell with two neighbours", function() {
-			console.log('should continue a cell with two neighbours');
 			var grid = new Grid(2, 2)
 			grid.spawn(1, 1)
 			grid.spawn(0, 1)
@@ -93,6 +91,15 @@ describe("the game of life", function () {
 			expect(grid.isAlive(1,1)).toBe(true)
 		})
 		
-		
+		it("should kill cells with more than three neighbours", function() {
+			var grid = new Grid(3, 3)
+			grid.spawn(1, 1)
+			grid.spawn(0, 1)
+			grid.spawn(1, 0)
+			grid.spawn(0, 0)
+			grid.spawn(2, 1)
+			grid.next()
+			expect(grid.isAlive(1,1)).toBe(false)
+		})
 	})
 })
