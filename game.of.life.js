@@ -96,5 +96,8 @@
 			
 			gridWalk(checkCell)
 		}
+		, draw: function () {
+			
+		}
 	}
 })()

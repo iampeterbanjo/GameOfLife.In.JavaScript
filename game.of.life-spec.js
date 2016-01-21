@@ -114,5 +114,10 @@ describe("the game of life", function () {
 			grid.next()
 			expect(grid.isAlive(1,1)).toBe(true)
 		})
+		
+		it("should be able to draw", function () {
+			var grid = new Grid(2,2)
+			expect(grid.draw).toBeDefined()
+		})
 	})
 })
