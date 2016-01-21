@@ -66,14 +66,23 @@
 			var neighbours, me = this
 			
 			// cover x and y poisitions incrementally
-			function gridWalk(x, y, callback){
-				if(x < me.width - 1) {
-					callback(x, y)
-					gridWalk(x + 1, y, callback)
-				} else if(y < me.height - 1) {
-					callback(x, y)
-					gridWalk(0, y + 1, callback)
+			function gridWalk(callback){
+				function walkX(x, y) {
+					if(x < me.width) {
+						walkY(x, y)
+						callback(x, y)
+						walkX(x + 1, y)
+					}
 				}
+				
+				function walkY(x, y){
+					if(y < me.height) {
+						callback(x, y)
+						walkY(x, y + 1)
+					}
+				}
+				
+				walkX(0, 0)
 			}
 			
 			function checkCell(xx, yy){
@@ -85,9 +94,7 @@
 				}
 			}
 			
-			// start at 0, 0 then check edge case 
-			gridWalk(0, 0, checkCell)
-			checkCell(me.width - 1, me.height - 1)
+			gridWalk(checkCell)
 		}
 	}
 })()
