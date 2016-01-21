@@ -140,5 +140,16 @@ describe("the game of life", function () {
 					
 			expect(table.querySelectorAll('td').length).toBe(4)
 		})
+		
+		it("should draw the grid with live cells checked", function () {
+			var grid = new Grid(2,2)
+					, table
+					
+			grid.spawn(1,1)
+			grid.spawn(0,1)
+			
+			table = grid.draw()
+			expect(table.querySelectorAll('[type="checkbox"]:checked').length).toBe(2)
+		})
 	})
 })

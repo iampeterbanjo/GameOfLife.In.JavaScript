@@ -111,6 +111,14 @@
 				
 				for (var w = 0; w < this.width; w++) {
 					var cell = document.createElement('td')
+							, input = document.createElement('input')
+					
+					input.type = "checkbox"
+					
+					if(this.isAlive(w,h)) {
+						input.setAttribute('checked', 'checked')
+					}
+					cell.appendChild(input)
 					row.appendChild(cell)
 				}
 				table.appendChild(row)
