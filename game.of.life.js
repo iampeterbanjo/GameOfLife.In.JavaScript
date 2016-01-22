@@ -62,45 +62,37 @@
 		, kill: function(x, y) {
 			this._grid[x][y] = false
 		}
-		, gridWalk: function(args){
+		, search: function(args){
 			var me = this
 			// cover x and y poisitions incrementally
-			function walkX(x, y) {
-				if(x < me.width) {
-					walkY(x, y)
-					
-					if(typeof args.each == 'function'){
-						args.each(x, y)
-					}
-
-					walkX(x + 1, y)
-				}
-			}
-			
-			function walkY(x, y){
-				if(y < me.height) {
+			for (var w = 0; w < this.width; w++) {
+				for (var h = 0; h < this.height; h++) {
 					if(typeof args.each == 'function') {
-						args.each(x, y)
+						args.each(w, h)
 					}
-					walkY(x, y + 1)
 				}
 			}
-			
-			walkX(0, 0)
 		}
 		, next: function() {
 			var neighbours, me = this
 			
 			function checkCell(xx, yy){
 				neighbours = me.aliveNeighbours(xx, yy)
-				if(neighbours < 2 || neighbours > 3) {
-					me.kill(xx, yy)
-				} else if (neighbours === 3) {
-					me.spawn(xx, yy)
+					
+				if(me.isAlive(xx,yy)){
+					if(neighbours < 2 || neighbours > 3) {
+						console.log('%s %s with %s neighbours is %s', xx, yy, neighbours, 'killed');
+						me.kill(xx, yy)
+					}
+				} else {
+					if (neighbours === 3) {
+						console.log('%s %s with %s neighbours is %s', xx, yy, neighbours, 'spawned');
+						me.spawn(xx, yy)
+					}
 				}
 			}
 			
-			me.gridWalk({each: checkCell})
+			me.search({each: checkCell})
 		}
 		, draw: function () {
 			var table = document.createElement('table')

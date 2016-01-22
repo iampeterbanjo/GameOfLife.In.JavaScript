@@ -167,5 +167,66 @@ describe("the game of life", function () {
 			expect(x).toBe(positionX)
 			expect(y).toBe(positionY)
 		})
+		
+		it("should check every cell", function() {
+			var grid = new Grid(5,5)
+					, self = this
+					
+			grid.search({ each: function(x, y) {
+				grid.spawn(x, y)
+			}})
+			
+			// row 1
+			expect(grid.isAlive(0,0)).toBe(true)
+			expect(grid.isAlive(1,0)).toBe(true)
+			expect(grid.isAlive(2,0)).toBe(true)
+			expect(grid.isAlive(3,0)).toBe(true)
+			expect(grid.isAlive(4,0)).toBe(true)
+			
+			// row 2
+			expect(grid.isAlive(0,1)).toBe(true)
+			expect(grid.isAlive(1,1)).toBe(true)
+			expect(grid.isAlive(2,1)).toBe(true)
+			expect(grid.isAlive(3,1)).toBe(true)
+			expect(grid.isAlive(4,1)).toBe(true)
+			
+			// row 3
+			expect(grid.isAlive(0,2)).toBe(true)
+			expect(grid.isAlive(1,2)).toBe(true)
+			expect(grid.isAlive(2,2)).toBe(true)
+			expect(grid.isAlive(3,2)).toBe(true)
+			expect(grid.isAlive(4,2)).toBe(true)
+			
+			
+			// row 4
+			expect(grid.isAlive(0,3)).toBe(true)
+			expect(grid.isAlive(1,3)).toBe(true)
+			expect(grid.isAlive(2,3)).toBe(true)
+			expect(grid.isAlive(3,3)).toBe(true)
+			expect(grid.isAlive(4,3)).toBe(true)
+			
+			// row 5
+			expect(grid.isAlive(0,4)).toBe(true)
+			expect(grid.isAlive(1,4)).toBe(true)
+			expect(grid.isAlive(2,4)).toBe(true)
+			expect(grid.isAlive(3,4)).toBe(true)
+			expect(grid.isAlive(4,4)).toBe(true)
+		})
+		
+		it("should create looper oscillator", function () {
+			var grid = new Grid(5,5)
+			
+			console.log("should create looper oscillator");
+			
+			grid.spawn(2, 3)
+			grid.spawn(2, 2)
+			grid.spawn(2, 1)
+			
+			grid.next()
+			
+			expect(grid.isAlive(1,2)).toBe(true)
+			expect(grid.isAlive(2,2)).toBe(true)
+			expect(grid.isAlive(3,2)).toBe(true)
+		})
 	})
 })
