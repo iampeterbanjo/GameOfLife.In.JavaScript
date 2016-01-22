@@ -18,6 +18,34 @@ describe("the game of life", function () {
 		it("should allow positions on the grid to be spawned", function () {
 			expect(new Grid().spawn).toBeDefined()
 		})
+		
+		it("should be able to getClone", function() {
+			expect(new Grid().getClone).toBeDefined()
+		})
+		
+		it("should get a clone of the grid with correct width and height", function() {
+			var grid = new Grid(2,2)
+					, board = grid.getClone()
+					
+			expect(board.length).toBe(grid.width)
+			expect(board[0].length).toBe(grid.height)
+		})
+		
+		it("should get a clone with the cells spawned", function() {
+			var grid = new Grid(3,3)
+					, board
+			
+			grid.spawn(1,1)
+			grid.spawn(0,1)
+			board = new Grid()
+			board.setBoard(grid.getClone())
+			
+			expect(board.isAlive(1,1)).toBe(true)
+			expect(board.isAlive(0,1)).toBe(true)
+			
+			grid.kill(1,1)
+			expect(board.isAlive(1,1)).toBe(true)
+		})
 
 		it("should spawn at a location", function () {
 			var grid = new Grid(10, 20)
@@ -224,8 +252,6 @@ describe("the game of life", function () {
 		
 		it("should create looper oscillator", function () {
 			var grid = new Grid(5,5)
-			
-			console.log("should create looper oscillator");
 			
 			grid.spawn(2, 3)
 			grid.spawn(2, 2)

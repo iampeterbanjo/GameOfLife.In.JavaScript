@@ -8,16 +8,32 @@
 		for (var i = 0; i < rows.length; i++) {
 			columns = rows[i] = new Array(height)
 		}
-		this._grid = rows
+		this.board = rows
 		this.height = columns.length // columns
 		this.width = rows.length // rows
 	}
 
-	_.prototype = {
 		// create life on the grid
-		spawn: function (x, y) {
+	_.prototype = {
+		setBoard: function(rows) {
+			this.board = rows
+			this.width = rows.length
+			this.height = rows[0].length
+		}
+		, getClone: function () {
+			var clone = []
+			for (var w = 0; w < this.width; w++) {
+				clone.push(new Array(this.height))
+				
+				for (var h = 0; h < this.height; h++) {
+					clone[w][h] = this.board[w][h]
+				}
+			}
+			return clone
+		}
+		, spawn: function (x, y) {
 			if (y < this.height && x < this.width) {
-				this._grid[x][y] = true
+				this.board[x][y] = true
 			} else {
 				throw new Error("Invalid grid position")
 			}
@@ -26,7 +42,7 @@
 		, isAlive: function (x, y) {
 			var alive = false
 			if (y > -1 && x > -1 && y < this.height && x < this.width) {
-				alive = this._grid[x][y]
+				alive = this.board[x][y]
 			}
 			return alive
 		}
@@ -60,7 +76,7 @@
 			return sum
 		}
 		, kill: function(x, y) {
-			this._grid[x][y] = false
+			this.board[x][y] = false
 		}
 		, search: function(args){
 			var me = this
@@ -75,6 +91,8 @@
 		}
 		, next: function() {
 			var neighbours, me = this
+			
+			me.setBoard(me.getClone())
 			
 			function checkCell(xx, yy){
 				neighbours = me.aliveNeighbours(xx, yy)
