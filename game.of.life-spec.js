@@ -1,3 +1,4 @@
+/* global querySelector */
 describe("the game of life", function () {
 
 	describe("the grid", function () {
@@ -143,13 +144,28 @@ describe("the game of life", function () {
 		
 		it("should draw the grid with live cells checked", function () {
 			var grid = new Grid(2,2)
-					, table
-					
+
 			grid.spawn(1,1)
 			grid.spawn(0,1)
 			
 			gridHtml = grid.draw()
 			expect(gridHtml.querySelectorAll('[type="checkbox"]:checked').length).toBe(2)
+		})
+		
+		it("should draw the cells at [2, 1] coordinates checked", function () {
+			var grid = new Grid(3,3)
+					, positionX = 2
+					, positionY = 1
+					, gridHtml, x, y, input
+					
+			grid.spawn(positionX, positionY)
+			
+			gridHtml = grid.draw()
+			input = gridHtml.querySelector('[type="checkbox"]:checked')
+			x = input.getAttribute('data-x') * 1
+			y = input.getAttribute('data-y') * 1
+			expect(x).toBe(positionX)
+			expect(y).toBe(positionY)
 		})
 	})
 })

@@ -105,7 +105,7 @@
 		, draw: function () {
 			var table = document.createElement('table')
 			table.setAttribute('id', 'grid')
-		
+			
 			for (var h = 0; h < this.height; h++) {
 				var row = document.createElement('tr')
 				row.classList.add('row')
@@ -118,8 +118,6 @@
 					input.type = "checkbox"
 					input.setAttribute('data-x', w)
 					input.setAttribute('data-y', h)
-					
-					console.log('%s %s is %s alive', w, h, this.isAlive(w,h) ? 'very' : 'not');
 					
 					if(this.isAlive(w,h)) {
 						input.setAttribute('checked', 'checked')
