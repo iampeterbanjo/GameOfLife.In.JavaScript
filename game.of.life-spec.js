@@ -176,62 +176,50 @@ describe("the game of life", function () {
 				grid.spawn(x, y)
 			}})
 			
-			// row 1
-			expect(grid.isAlive(0,0)).toBe(true)
-			expect(grid.isAlive(1,0)).toBe(true)
-			expect(grid.isAlive(2,0)).toBe(true)
-			expect(grid.isAlive(3,0)).toBe(true)
-			expect(grid.isAlive(4,0)).toBe(true)
-			
-			// row 2
-			expect(grid.isAlive(0,1)).toBe(true)
-			expect(grid.isAlive(1,1)).toBe(true)
-			expect(grid.isAlive(2,1)).toBe(true)
-			expect(grid.isAlive(3,1)).toBe(true)
-			expect(grid.isAlive(4,1)).toBe(true)
-			
-			// row 3
-			expect(grid.isAlive(0,2)).toBe(true)
-			expect(grid.isAlive(1,2)).toBe(true)
-			expect(grid.isAlive(2,2)).toBe(true)
-			expect(grid.isAlive(3,2)).toBe(true)
-			expect(grid.isAlive(4,2)).toBe(true)
-			
-			
-			// row 4
-			expect(grid.isAlive(0,3)).toBe(true)
-			expect(grid.isAlive(1,3)).toBe(true)
-			expect(grid.isAlive(2,3)).toBe(true)
-			expect(grid.isAlive(3,3)).toBe(true)
-			expect(grid.isAlive(4,3)).toBe(true)
-			
-			// row 5
-			expect(grid.isAlive(0,4)).toBe(true)
-			expect(grid.isAlive(1,4)).toBe(true)
-			expect(grid.isAlive(2,4)).toBe(true)
-			expect(grid.isAlive(3,4)).toBe(true)
-			expect(grid.isAlive(4,4)).toBe(true)
+			grid.search({each: function(x, y) {
+				self.expect(grid.isAlive(x, y)).toBe(true)
+			}})
 		})
 		
 		it("should emulate block still life", function () {
 			var grid = new Grid(4,4)
+					, cells = [
+						[1,1]
+						,[2,1]
+						,[1,2]
+						,[2,2]
+					]
 			
-			grid.spawn(1,1)
-			grid.spawn(2,1)
-			grid.spawn(1,2)
-			grid.spawn(2,2)
+			for (var index = 0; index < cells.length; index++) {
+				grid.spawn(cells[index][0], cells[index][1])
+			}
 			
 			grid.next()
-			expect(grid.isAlive(1,1)).toBe(true)
-			expect(grid.isAlive(2,1)).toBe(true)
-			expect(grid.isAlive(1,2)).toBe(true)
-			expect(grid.isAlive(2,2)).toBe(true)
+			
+			for (var index = 0; index < cells.length; index++) {
+				expect(grid.isAlive(cells[index][0], cells[index][1])).toBe(true)
+			}
+		})
+		
+		it("should emulate boat still life", function () {
+			var grid = new Grid(5,5)
+					, cells = [
+						[2,1]
+						,[1,2]
+						,[3,2]
+						,[1,3]
+						,[2,3]
+					]
+			
+			for (var index = 0; index < cells.length; index++) {
+				grid.spawn(cells[index][0], cells[index][1])
+			}
 			
 			grid.next()
-			expect(grid.isAlive(1,1)).toBe(true)
-			expect(grid.isAlive(2,1)).toBe(true)
-			expect(grid.isAlive(1,2)).toBe(true)
-			expect(grid.isAlive(2,2)).toBe(true)
+			
+			for (var index = 0; index < cells.length; index++) {
+				expect(grid.isAlive(cells[index][0], cells[index][1])).toBe(true)
+			}
 		})
 		
 		it("should create looper oscillator", function () {
