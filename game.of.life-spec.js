@@ -213,6 +213,27 @@ describe("the game of life", function () {
 			expect(grid.isAlive(4,4)).toBe(true)
 		})
 		
+		it("should emulate block still life", function () {
+			var grid = new Grid(4,4)
+			
+			grid.spawn(1,1)
+			grid.spawn(2,1)
+			grid.spawn(1,2)
+			grid.spawn(2,2)
+			
+			grid.next()
+			expect(grid.isAlive(1,1)).toBe(true)
+			expect(grid.isAlive(2,1)).toBe(true)
+			expect(grid.isAlive(1,2)).toBe(true)
+			expect(grid.isAlive(2,2)).toBe(true)
+			
+			grid.next()
+			expect(grid.isAlive(1,1)).toBe(true)
+			expect(grid.isAlive(2,1)).toBe(true)
+			expect(grid.isAlive(1,2)).toBe(true)
+			expect(grid.isAlive(2,2)).toBe(true)
+		})
+		
 		it("should create looper oscillator", function () {
 			var grid = new Grid(5,5)
 			
