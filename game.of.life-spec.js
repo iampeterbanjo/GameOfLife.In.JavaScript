@@ -231,6 +231,10 @@ describe("the game of life", function () {
 			grid.spawn(2, 2)
 			grid.spawn(2, 1)
 			
+			expect(grid.aliveNeighbours(2,1)).toBe(1)
+			expect(grid.aliveNeighbours(2,2)).toBe(2)
+			expect(grid.aliveNeighbours(1,2)).toBe(3)
+			
 			grid.next()
 			
 			expect(grid.isAlive(1,2)).toBe(true)
