@@ -40,7 +40,7 @@ describe("the game of life", function () {
 			board = new Grid()
 			board.setBoard(grid.getClone())
 			
-			expect(board.isAlive(1,1)).toBe(true)
+			expect(grid.isAlive(1,1)).toBe(true)
 			expect(board.isAlive(0,1)).toBe(true)
 			
 			grid.kill(1,1)

@@ -8,6 +8,7 @@
 		for (var i = 0; i < rows.length; i++) {
 			columns = rows[i] = new Array(height)
 		}
+		this.previousBoard = []
 		this.board = rows
 		this.height = columns.length // columns
 		this.width = rows.length // rows
@@ -39,15 +40,17 @@
 			}
 		}
 		// is a location on the grid alive?
-		, isAlive: function (x, y) {
+		, isAlive: function (x, y, isPrev) {
 			var alive = false
-			if (y > -1 && x > -1 && y < this.height && x < this.width) {
-				alive = this.board[x][y]
+					, currentBoard = isPrev ? this.previousBoard : this.board
+					
+			if (y > -1 && x > -1 && y < currentBoard.length && x < currentBoard[0].length) {
+				alive = currentBoard[x][y]
 			}
 			return alive
 		}
 		// how many neighbours at this location
-		, aliveNeighbours: function (x, y) {
+		, aliveNeighbours: function (x, y, isPrev) {
 			var me = this
 					, sum = 0
 					, left = x - 1
@@ -68,7 +71,7 @@
 					]
 					
 			neighbours.forEach(function (n) {
-				if(me.isAlive(n[0], n[1])) {
+				if(me.isAlive(n[0], n[1], isPrev)) {
 					sum += 1
 				}
 			})
@@ -92,19 +95,17 @@
 		, next: function() {
 			var neighbours, me = this
 			
-			me.setBoard(me.getClone())
+			this.previousBoard = me.getClone()
 			
 			function checkCell(xx, yy){
-				neighbours = me.aliveNeighbours(xx, yy)
+				neighbours = me.aliveNeighbours(xx, yy, true)
 					
 				if(me.isAlive(xx,yy)){
 					if(neighbours < 2 || neighbours > 3) {
-						console.log('%s %s with %s neighbours is %s', xx, yy, neighbours, 'killed');
 						me.kill(xx, yy)
 					}
 				} else {
 					if (neighbours === 3) {
-						console.log('%s %s with %s neighbours is %s', xx, yy, neighbours, 'spawned');
 						me.spawn(xx, yy)
 					}
 				}
