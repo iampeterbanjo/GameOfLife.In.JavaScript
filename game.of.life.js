@@ -108,11 +108,13 @@
 			
 			for (var h = 0; h < this.height; h++) {
 				var row = document.createElement('tr')
+				row.classList.add('row')
 				
 				for (var w = 0; w < this.width; w++) {
 					var cell = document.createElement('td')
 							, input = document.createElement('input')
-					
+							
+					cell.classList.add('cell')
 					input.type = "checkbox"
 					
 					if(this.isAlive(w,h)) {

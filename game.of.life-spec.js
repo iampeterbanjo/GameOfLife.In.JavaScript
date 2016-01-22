@@ -120,25 +120,25 @@ describe("the game of life", function () {
 			expect(grid.draw).toBeDefined()
 		})
 		
-		it("should be able to draw the grid as a table", function () {
+		it("should be able to draw the grid", function () {
 			var grid = new Grid(2,2)
-					, table = grid.draw()
+					, gridHtml = grid.draw()
 					
-			expect(table.tagName).toBe('TABLE')
+			expect(gridHtml.id).toBe('grid')
 		})
 		
 		it("should draw the grid with correct number of rows", function () {
 			var grid = new Grid(2,2)
-					, table = grid.draw()
+					, gridHtml = grid.draw()
 					
-			expect(table.querySelectorAll('tr').length).toBe(2)
+			expect(gridHtml.querySelectorAll('.row').length).toBe(2)
 		})
 		
 		it("should draw the grid with correct number of cells", function () {
 			var grid = new Grid(2,2)
-					, table = grid.draw()
+					, gridHtml = grid.draw()
 					
-			expect(table.querySelectorAll('td').length).toBe(4)
+			expect(gridHtml.querySelectorAll('.cell').length).toBe(4)
 		})
 		
 		it("should draw the grid with live cells checked", function () {
@@ -148,8 +148,8 @@ describe("the game of life", function () {
 			grid.spawn(1,1)
 			grid.spawn(0,1)
 			
-			table = grid.draw()
-			expect(table.querySelectorAll('[type="checkbox"]:checked').length).toBe(2)
+			gridHtml = grid.draw()
+			expect(gridHtml.querySelectorAll('[type="checkbox"]:checked').length).toBe(2)
 		})
 	})
 })
