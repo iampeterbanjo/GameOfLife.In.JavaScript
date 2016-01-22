@@ -29,7 +29,21 @@ document.addEventListener('DOMContentLoaded', function() {
 		} else {
 			grid.kill(x,y)
 		}
+	})
+	
+	var autoplay = document.querySelector('.autoplay')
+			, interval
+	autoplay.addEventListener('change', function (event) {
+		var input = event.target
+				, checked = input.checked
 		
-		console.log('%s x %s y %s', checked ? 'spawned' : 'killed', x, y);
+		if(checked) {
+			interval = setInterval(function(){
+				grid.next()
+				update()
+			}, 500)
+		} else {
+			clearInterval(interval)
+		}
 	})
 })
