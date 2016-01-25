@@ -151,21 +151,21 @@ describe("the game of life", function () {
 		
 		it("should be able to draw the grid", function () {
 			var grid = new Game(2,2)
-					, gridHtml = grid.draw()
+					, gridHtml = grid.draw().html
 					
 			expect(gridHtml.id).toBe('grid')
 		})
 		
 		it("should draw the grid with correct number of rows", function () {
 			var grid = new Game(2,2)
-					, gridHtml = grid.draw()
+					, gridHtml = grid.draw().html
 					
 			expect(gridHtml.querySelectorAll('.row').length).toBe(2)
 		})
 		
 		it("should draw the grid with correct number of cells", function () {
 			var grid = new Game(2,2)
-					, gridHtml = grid.draw()
+					, gridHtml = grid.draw().html
 					
 			expect(gridHtml.querySelectorAll('.cell').length).toBe(4)
 		})
@@ -176,7 +176,7 @@ describe("the game of life", function () {
 			grid.spawn(1,1)
 			grid.spawn(0,1)
 			
-			gridHtml = grid.draw()
+			gridHtml = grid.draw().html
 			expect(gridHtml.querySelectorAll('[type="checkbox"]:checked').length).toBe(2)
 		})
 		
@@ -188,7 +188,7 @@ describe("the game of life", function () {
 					
 			grid.spawn(positionX, positionY)
 			
-			gridHtml = grid.draw()
+			gridHtml = grid.draw().html
 			input = gridHtml.querySelector('[type="checkbox"]:checked')
 			x = input.getAttribute('data-x') * 1
 			y = input.getAttribute('data-y') * 1

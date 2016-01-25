@@ -115,11 +115,13 @@
 		}
 		, draw: function () {
 			var table = document.createElement('table')
+					, checkboxes = []
 			table.setAttribute('id', 'grid')
 			
 			for (var h = 0; h < this.height; h++) {
 				var row = document.createElement('tr')
 				row.classList.add('row')
+				checkboxes[h] = []
 				
 				for (var w = 0; w < this.width; w++) {
 					var cell = document.createElement('td')
@@ -130,6 +132,8 @@
 					input.setAttribute('data-x', w)
 					input.setAttribute('data-y', h)
 					
+					checkboxes[h][w] = input
+					
 					if(this.isAlive(w,h)) {
 						input.setAttribute('checked', 'checked')
 					}
@@ -139,7 +143,7 @@
 				table.appendChild(row)
 			}
 			
-			return table
+			return {html: table, checkboxes: checkboxes}
 		}
 	}
 })()

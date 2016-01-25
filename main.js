@@ -1,7 +1,17 @@
 (function() {
 	var _ = self.GameView = function() {
-		var $$ = function(selector){
+		function $$(selector){
 			return document.querySelector(selector)
+		}
+		
+		function getInput(event) {
+			var input = event.target
+			
+			return {
+				x: input.getAttribute('data-x')
+				, y: input.getAttribute('data-y')
+				, checked: input.checked
+			}
 		}
 		
 		return {
@@ -11,6 +21,7 @@
 				this.watchNext()
 				this.watchGridChange()
 				this.watchAutoplay()
+				this.watchKeyup()
 			}
 			, update: function() {
 				this.view.innerHTML = ''
@@ -37,15 +48,12 @@
 			}
 			, watchGridChange: function () {
 			this.view.addEventListener('change', function(event) {
-				var input = event.target
-						, x = input.getAttribute('data-x')
-						, y = input.getAttribute('data-y')
-						, checked = input.checked
-
-				if(checked) {
-					_.game.spawn(x,y)
+				var input = getInput(event)
+						
+				if(input.checked) {
+					_.game.spawn(input.x, input.y)
 				} else {
-					_.game.kill(x,y)
+					_.game.kill(input.x, input.y)
 				}
 			})
 		}
@@ -54,7 +62,7 @@
 				var autoplay = $$('#autoplay')
 						, interval
 				autoplay.addEventListener('change', function (event) {
-					var input = event.target
+					var input = getInput(event.target)
 							, checked = input.checked
 					
 					$$('#status').innerHTML = checked ? 'Stop' : 'Start'
@@ -66,6 +74,24 @@
 						}, 500)
 					} else {
 						clearInterval(interval)
+					}
+				})
+			}
+			, watchKeyup: function() {
+				var me = this
+				this.view.addEventListener('keyup', function(event) {
+					console.log(event);
+					switch(event.keyCode) {
+						case 37:
+							break;
+						case 38:
+							break;
+						case 39:
+							break;
+						case 40:
+							break;
+						default:
+							break;
 					}
 				})
 			}
