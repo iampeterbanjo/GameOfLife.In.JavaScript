@@ -1,7 +1,7 @@
 (function () {
-	// Grid defines the 2D world in which the game
+	// Game defines the 2D world in which the game
 	// plays out
-	var _ = self.Grid = function (width, height) {
+	var _ = self.Game = function (width, height) {
 		var rows = new Array(width)
 				, columns
 
