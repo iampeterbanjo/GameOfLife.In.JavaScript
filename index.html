@@ -6,14 +6,19 @@
 </head>
 <body>
 	<div class="container">
-		<button class="next">Next</button>
-		<label for="autoplay">
-			<input id="autoplay" name="autoplay" type="checkbox" />
-			<span id="status">Autoplay</span>
-		</label>
-		<div id="grid-wrapper">
-			
+		<div class="controls">
+			<label for="size">
+				<input type="number" id="size" min="4" step="1" max="15">
+			</label>
+			<button class="new">New</button>
+			<label for="autoplay">
+				<input id="autoplay" name="autoplay" type="checkbox" />
+				<span id="status">Start</span>
+			</label>
+			<button class="next">Next</button>
 		</div>
+		
+		<div id="grid-wrapper"></div>
 	</div>
 	<script src="game.of.life.js"></script>
 	<script src="main.js"></script>

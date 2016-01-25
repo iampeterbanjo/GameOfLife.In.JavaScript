@@ -1,14 +1,12 @@
 (function() {
-	var _ = self.GameView = function(args) {
+	var _ = self.GameView = function() {
 		var $$ = function(selector){
 			return document.querySelector(selector)
 		}
 		
 		return {
-			init: function() {
-				_.game = new Game(args.width, args.height)
+			init: function(args) {
 				this.view = $$(args.selector)
-				this.status = $$('#status')
 				this.update()
 				this.watchNext()
 				this.watchGridChange()
@@ -21,6 +19,14 @@
 			, next: function() {
 				_.game.next()
 				this.update()
+			}
+			, watchNew: function() {
+				var me = this
+				$$('.new').addEventListener('click', function(){
+					var size = $$('#size').value * 1
+					_.game = new Game(size, size)
+					me.init({selector: '#grid-wrapper'})
+				})
 			}
 			, watchNext: function() {
 				var me = this
@@ -51,6 +57,8 @@
 					var input = event.target
 							, checked = input.checked
 					
+					$$('#status').innerHTML = checked ? 'Stop' : 'Start'
+
 					if(checked) {
 						interval = setInterval(function(){
 							_.game.next()
@@ -69,6 +77,6 @@
 document.addEventListener('DOMContentLoaded', function() {
 	console.log('ready');
 	
-	var gameView = new GameView({width: 5, height: 5, selector: '#grid-wrapper'})
-	gameView.init()
+	var gameView = new GameView()
+	gameView.watchNew()
 })
