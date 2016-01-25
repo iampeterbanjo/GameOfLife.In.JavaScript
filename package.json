@@ -1,0 +1,28 @@
+{
+  "name": "gameoflife.in.javascript",
+  "version": "1.0.0",
+  "description": "Conways Game of Life in JavaScript",
+  "main": "main.js",
+  "scripts": {
+    "install": "npm install -g testem",
+    "test": "testem ci"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/iampeterbanjo/GameOfLife.In.JavaScript.git"
+  },
+  "keywords": [
+    "conway",
+    "game",
+    "of",
+    "life",
+    "javascript",
+    "algorithm"
+  ],
+  "author": "Peter Banjo",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/iampeterbanjo/GameOfLife.In.JavaScript/issues"
+  },
+  "homepage": "https://github.com/iampeterbanjo/GameOfLife.In.JavaScript#readme"
+}

@@ -11,6 +11,7 @@
 				x: input.getAttribute('data-x')
 				, y: input.getAttribute('data-y')
 				, checked: input.checked
+				, coords: input.coords
 			}
 		}
 		
@@ -25,7 +26,8 @@
 			}
 			, update: function() {
 				this.view.innerHTML = ''
-				this.view.appendChild(_.game.draw())
+				this.rendered = _.game.draw()
+				this.view.appendChild(this.rendered.html)
 			}
 			, next: function() {
 				_.game.next()
@@ -62,7 +64,7 @@
 				var autoplay = $$('#autoplay')
 						, interval
 				autoplay.addEventListener('change', function (event) {
-					var input = getInput(event.target)
+					var input = getInput(event)
 							, checked = input.checked
 					
 					$$('#status').innerHTML = checked ? 'Stop' : 'Start'
@@ -80,18 +82,29 @@
 			, watchKeyup: function() {
 				var me = this
 				this.view.addEventListener('keyup', function(event) {
+					var input = getInput(event)
+
 					console.log(event);
-					switch(event.keyCode) {
-						case 37:
-							break;
-						case 38:
-							break;
-						case 39:
-							break;
-						case 40:
-							break;
-						default:
-							break;
+					console.log(input.x);
+					if(event.keyCode === 37) {
+						if(input.x > 0){
+							me.rendered.checkboxes[input.y][input.x - 1].focus()
+							// event.target.parentElement.previousElementSibling.querySelector('input').focus()
+						}
+					} else if(event.keyCode === 38) {
+						if(input.y < _.game.height - 1){
+							me.rendered.checkboxes[input.y - 1][input.x].focus()
+							// event.target.parentElement.parentElement.querySelector('td:nth-child(' + input.x + ') input').focus()
+						}
+					} else if(event.keyCode === 39) {
+						if(input.x < _.game.width - 1){
+							me.rendered.checkboxes[input.y][input.x + 1].focus()
+							// event.target.parentElement.nextElementSibling.querySelector('input').focus()
+						}
+					} else if(event.keyCode === 40) {
+						if(input.y > 0){
+							me.rendered.checkboxes[input.y - 1][input.x].focus()
+						}
 					}
 				})
 			}
