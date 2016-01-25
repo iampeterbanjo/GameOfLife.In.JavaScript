@@ -1,11 +1,14 @@
 (function() {
 	var _ = self.GameView = function(args) {
-		this.args = args
+		var $$ = function(selector){
+			return document.querySelector(selector)
+		}
 		
 		return {
 			init: function() {
 				_.game = new Game(args.width, args.height)
-				this.view = document.querySelector(args.selector)
+				this.view = $$(args.selector)
+				this.status = $$('#status')
 				this.update()
 				this.watchNext()
 				this.watchGridChange()
@@ -21,7 +24,7 @@
 			}
 			, watchNext: function() {
 				var me = this
-				document.querySelector('.next').addEventListener('click', function() {
+				$$('.next').addEventListener('click', function() {
 					_.game.next()
 					me.update()
 				})
@@ -42,7 +45,7 @@
 		}
 		, watchAutoplay: function() {
 				var me = this
-				var autoplay = document.querySelector('.autoplay')
+				var autoplay = $$('#autoplay')
 						, interval
 				autoplay.addEventListener('change', function (event) {
 					var input = event.target
